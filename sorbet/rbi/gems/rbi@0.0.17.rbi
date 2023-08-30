@@ -1788,12 +1788,7 @@ end
 class RBI::Rewriters::Merge::TreeMerger < ::RBI::Visitor
   # source://rbi//lib/rbi/rewriters/merge_trees.rb#107
   sig do
-    params(
-      output: ::RBI::Tree,
-      left_name: ::String,
-      right_name: ::String,
-      keep: ::RBI::Rewriters::Merge::Keep
-    ).void
+    params(output: ::RBI::Tree, left_name: ::String, right_name: ::String, keep: ::RBI::Rewriters::Merge::Keep).void
   end
   def initialize(output, left_name: T.unsafe(nil), right_name: T.unsafe(nil), keep: T.unsafe(nil)); end
 

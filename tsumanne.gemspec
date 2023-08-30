@@ -30,12 +30,18 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "mhtml", "~> 0.1.6"
-  spec.add_dependency "sorbet-runtime", "~> 0.5.10990"
+  spec.add_dependency "mhtml", "~> 0.1"
+  spec.add_dependency "sorbet-runtime", "~> 0.5"
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+
+  spec.add_development_dependency "sorbet", "~> 0.5"
+  spec.add_development_dependency "tapioca", "~> 0.11"
+
   spec.add_development_dependency "rubocop", "~> 1.21"
-  spec.add_development_dependency "sorbet", "~> 0.5.10990"
-  spec.add_development_dependency "tapioca", "~> 0.11.8"
+  spec.add_development_dependency "rubocop-sorbet", "~> 0.7"
+  spec.add_development_dependency "rubocop-rake", "~> 0.6"
+  spec.add_development_dependency "rubocop-rspec", "~> 2.23"
+  spec.add_development_dependency "rubocop-performance", "~> 1.19"
 end

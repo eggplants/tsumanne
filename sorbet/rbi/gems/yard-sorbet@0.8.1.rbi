@@ -259,10 +259,7 @@ module YARDSorbet::NodeUtils
     #
     # source://yard-sorbet//lib/yard-sorbet/node_utils.rb#21
     sig do
-      params(
-        node: ::YARD::Parser::Ruby::AstNode,
-        _blk: T.proc.params(n: ::YARD::Parser::Ruby::AstNode).void
-      ).void
+      params(node: ::YARD::Parser::Ruby::AstNode, _blk: T.proc.params(n: ::YARD::Parser::Ruby::AstNode).void).void
     end
     def bfs_traverse(node, &_blk); end
 

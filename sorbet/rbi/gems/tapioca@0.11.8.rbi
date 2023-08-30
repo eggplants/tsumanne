@@ -976,9 +976,7 @@ module Tapioca::ConfigHelper
 
   # source://tapioca//lib/tapioca/helpers/config_helper.rb#56
   sig do
-    params(
-      options: ::Thor::CoreExt::HashWithIndifferentAccess
-    ).returns(::Thor::CoreExt::HashWithIndifferentAccess)
+    params(options: ::Thor::CoreExt::HashWithIndifferentAccess).returns(::Thor::CoreExt::HashWithIndifferentAccess)
   end
   def config_options(options); end
 
@@ -1247,10 +1245,7 @@ class Tapioca::Dsl::Pipeline
 
   # source://tapioca//lib/tapioca/dsl/pipeline.rb#130
   sig do
-    params(
-      requested_constants: T::Array[::Module],
-      requested_paths: T::Array[::Pathname]
-    ).returns(T::Set[::Module])
+    params(requested_constants: T::Array[::Module], requested_paths: T::Array[::Pathname]).returns(T::Set[::Module])
   end
   def gather_constants(requested_constants, requested_paths); end
 
@@ -2157,12 +2152,7 @@ module Tapioca::Loaders; end
 class Tapioca::Loaders::Dsl < ::Tapioca::Loaders::Loader
   # source://tapioca//lib/tapioca/loaders/dsl.rb#38
   sig do
-    params(
-      tapioca_path: ::String,
-      eager_load: T::Boolean,
-      app_root: ::String,
-      halt_upon_load_error: T::Boolean
-    ).void
+    params(tapioca_path: ::String, eager_load: T::Boolean, app_root: ::String, halt_upon_load_error: T::Boolean).void
   end
   def initialize(tapioca_path:, eager_load: T.unsafe(nil), app_root: T.unsafe(nil), halt_upon_load_error: T.unsafe(nil)); end
 
@@ -2386,9 +2376,7 @@ module Tapioca::RBIFilesHelper
 
   # source://tapioca//lib/tapioca/helpers/rbi_files_helper.rb#234
   sig do
-    params(
-      nodes: T::Array[T.any(::RBI::Attr, ::RBI::Method)]
-    ).returns(T::Array[T.any(::RBI::Attr, ::RBI::Method)])
+    params(nodes: T::Array[T.any(::RBI::Attr, ::RBI::Method)]).returns(T::Array[T.any(::RBI::Attr, ::RBI::Method)])
   end
   def extract_nodes_with_sigs(nodes); end
 
@@ -2961,9 +2949,7 @@ module Tapioca::Runtime::Trackers::Mixin
   class << self
     # source://tapioca//lib/tapioca/runtime/trackers/mixin.rb#56
     sig do
-      params(
-        mixin: ::Module
-      ).returns(T::Hash[::Tapioca::Runtime::Trackers::Mixin::Type, T::Hash[::Module, ::String]])
+      params(mixin: ::Module).returns(T::Hash[::Tapioca::Runtime::Trackers::Mixin::Type, T::Hash[::Module, ::String]])
     end
     def constants_with_mixin(mixin); end
 
@@ -2997,9 +2983,7 @@ module Tapioca::Runtime::Trackers::Mixin
 
     # source://tapioca//lib/tapioca/runtime/trackers/mixin.rb#76
     sig do
-      params(
-        mixin: ::Module
-      ).returns(T::Hash[::Tapioca::Runtime::Trackers::Mixin::Type, T::Hash[::Module, ::String]])
+      params(mixin: ::Module).returns(T::Hash[::Tapioca::Runtime::Trackers::Mixin::Type, T::Hash[::Module, ::String]])
     end
     def find_or_initialize_mixin_lookup(mixin); end
 
@@ -3270,11 +3254,7 @@ class Tapioca::TypeVariableModule < ::Module
 
   # source://tapioca//lib/tapioca/sorbet_ext/generic_name_patch.rb#241
   sig do
-    params(
-      fixed: T.untyped,
-      lower: T.untyped,
-      upper: T.untyped
-    ).returns(T.proc.returns(T::Hash[::Symbol, T.untyped]))
+    params(fixed: T.untyped, lower: T.untyped, upper: T.untyped).returns(T.proc.returns(T::Hash[::Symbol, T.untyped]))
   end
   def build_bounds_proc(fixed, lower, upper); end
 

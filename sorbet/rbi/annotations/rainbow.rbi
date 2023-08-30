@@ -60,14 +60,14 @@ module Rainbow
     class X11Named < Rainbow::Color::RGB
       include Rainbow::X11ColorNames
 
-      sig { returns(T::Array[Symbol]) }
+      sig { params(ground: Symbol, name: Symbol).void }
+      def initialize(ground, name); end
+
+      sig { returns(String) }
       def self.color_names; end
 
       sig { returns(String) }
       def self.valid_names; end
-
-      sig { params(ground: Symbol, name: Symbol).void }
-      def initialize(ground, name); end
     end
   end
 

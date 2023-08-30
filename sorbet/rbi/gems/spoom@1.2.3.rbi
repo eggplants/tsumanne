@@ -1952,11 +1952,7 @@ class Spoom::Deadcode::Plugins::Base
 
     # source://spoom//lib/spoom/deadcode/plugins/base.rb#41
     sig do
-      params(
-        names: T::Array[T.any(::Regexp, ::String)],
-        names_variable: ::Symbol,
-        patterns_variable: ::Symbol
-      ).void
+      params(names: T::Array[T.any(::Regexp, ::String)], names_variable: ::Symbol, patterns_variable: ::Symbol).void
     end
     def save_names_and_patterns(names, names_variable, patterns_variable); end
   end

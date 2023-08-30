@@ -5,7 +5,19 @@ RSpec.describe Tsumanne do
     expect(Tsumanne::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  context "API" do
+    let(:api) { Tsumanne::API }
+
+    it "ok when initializing with valid symbol" do
+      expect(api.new(board_id: :img).board_id).to eql("si")
+    end
+
+    it "raises TypeError when initializing with invalid symbol" do
+      expect{ api.new(board_id: :si) }.to raise_error(TypeError)
+    end
+
+    it "raises ArgumentError when initializing without board_id" do
+      expect{ api.new("si") }.to raise_error(ArgumentError)
+    end
   end
 end

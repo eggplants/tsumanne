@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     tsumanne (0.1.0)
-      mhtml (~> 0.1.6)
-      sorbet-runtime (~> 0.5.10990)
+      mhtml (~> 0.1)
+      sorbet-runtime (~> 0.5)
 
 GEM
   remote: https://rubygems.org/
@@ -65,6 +65,21 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.29.0)
       parser (>= 3.2.1.0)
+    rubocop-capybara (2.18.0)
+      rubocop (~> 1.41)
+    rubocop-factory_bot (2.23.1)
+      rubocop (~> 1.33)
+    rubocop-performance (1.19.0)
+      rubocop (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
+    rubocop-rake (0.6.0)
+      rubocop (~> 1.0)
+    rubocop-rspec (2.23.2)
+      rubocop (~> 1.33)
+      rubocop-capybara (~> 2.17)
+      rubocop-factory_bot (~> 2.22)
+    rubocop-sorbet (0.7.3)
+      rubocop (>= 0.90.0)
     ruby-progressbar (1.13.0)
     sorbet (0.5.10990)
       sorbet-static (= 0.5.10990)
@@ -106,8 +121,12 @@ DEPENDENCIES
   rake (~> 13.0)
   rspec (~> 3.0)
   rubocop (~> 1.21)
-  sorbet (~> 0.5.10990)
-  tapioca (~> 0.11.8)
+  rubocop-performance (~> 1.19)
+  rubocop-rake (~> 0.6)
+  rubocop-rspec (~> 2.23)
+  rubocop-sorbet (~> 0.7)
+  sorbet (~> 0.5)
+  tapioca (~> 0.11)
   tsumanne!
 
 BUNDLED WITH
