@@ -10,16 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    # - uses: ruby/setup-ruby@v1
-    #   with:
-    #     bundler-cache: true
-    # - run: bundle exec rake
-    # - run: |
-    #     git config --global user.email "${{ github.event.pusher.email }}"
-    #     git config --global user.name "${{ github.event.actor }}"
-    # - run: bundle exec rake release
-    #   env:
-    #     GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+    - uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+    - run: bundle exec rake
+    - run: |
+        git config --global user.email "${{ secrets.RUBYGEMS_EMAIL }}"
+        git config --global user.name "${{ secrets.RUBYGEMS_USERNAME }}"
+    - run: bundle exec rake release
+      env:
+        GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
     - id: create_release
       uses: actions/create-release@v1
       env:
