@@ -2,6 +2,15 @@
 
 require "tsumanne"
 
+require 'simplecov'
+require "simplecov_json_formatter"
+
+SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
+SimpleCov.start do
+  minimum_coverage_by_file 90
+  minimum_coverage 90
+end
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
@@ -13,3 +22,4 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
