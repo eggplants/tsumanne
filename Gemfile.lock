@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tsumanne (0.1.0)
+    tsumanne (0.0.0)
       mhtml (~> 0.1)
       sorbet-runtime (~> 0.5)
 
@@ -81,13 +81,13 @@ GEM
     rubocop-sorbet (0.7.3)
       rubocop (>= 0.90.0)
     ruby-progressbar (1.13.0)
-    sorbet (0.5.10990)
-      sorbet-static (= 0.5.10990)
-    sorbet-runtime (0.5.10990)
-    sorbet-static (0.5.10990-x86_64-linux)
-    sorbet-static-and-runtime (0.5.10990)
-      sorbet (= 0.5.10990)
-      sorbet-runtime (= 0.5.10990)
+    sorbet (0.5.10991)
+      sorbet-static (= 0.5.10991)
+    sorbet-runtime (0.5.10991)
+    sorbet-static (0.5.10991-x86_64-linux)
+    sorbet-static-and-runtime (0.5.10991)
+      sorbet (= 0.5.10991)
+      sorbet-runtime (= 0.5.10991)
     spoom (1.2.3)
       erubi (>= 1.10.0)
       sorbet-static-and-runtime (>= 0.5.10187)
