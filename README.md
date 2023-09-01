@@ -36,7 +36,7 @@ rake
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/eggplants/tsumanne.
+Bug reports and pull requests are welcome on GitHub at <https://github.com/eggplants/tsumanne>.
 
 ## License
 
