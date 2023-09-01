@@ -1,13 +1,13 @@
-# typed: strict
+# typed: ignore
 
 # frozen_string_literal: true
 
 require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 require "rubocop/rake_task"
-require "sorbet-runtime"
+# require "sorbet-runtime"
 
-T.bind(self, T.all(Rake::DSL, Object))
+# T.bind(self, T.all(Rake::DSL, Object))
 
 RSpec::Core::RakeTask.new(:spec)
 
