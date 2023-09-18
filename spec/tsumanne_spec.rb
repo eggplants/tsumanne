@@ -31,7 +31,7 @@ RSpec.describe Tsumanne do
     describe "#get_threads" do
       let(:instance) { Tsumanne::API.new(board_id: :img) }
       it "works" do
-        expect(instance.get_threads["success"]).to eql(true)
+        expect(instance.get_threads.success).to eql(true)
       end
     end
 
@@ -55,14 +55,14 @@ RSpec.describe Tsumanne do
       let(:instance) { Tsumanne::API.new(board_id: :img) }
       it "works" do
         target_uri = URI.parse("https://img.2chan.net/b/res/86279902.htm")
-        expect(instance.search_thread_from_uri(target_uri)["success"]).to eql(true)
+        expect(instance.search_thread_from_uri(target_uri).success).to eql(true)
       end
     end
 
     describe "#search_indexes" do
       let(:instance) { Tsumanne::API.new(board_id: :img) }
       it "works" do
-        expect(instance.search_indexes(keyword: "深淵")["success"]).to eql(true)
+        expect(instance.search_indexes(keyword: "深淵").success).to eql(true)
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe Tsumanne do
       let(:instance) { Tsumanne::API.new(board_id: :img) }
       it "works" do
         target_uri = URI.parse("https://img.2chan.net/b/res/0.htm")
-        expect(instance.register_thread(target_uri)["success"]).to eql(true)
+        expect(instance.register_thread(target_uri).success).to eql(true)
       end
     end
   end

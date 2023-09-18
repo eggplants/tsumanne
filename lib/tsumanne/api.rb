@@ -10,6 +10,11 @@ require "zlib"
 require "mhtml"
 require "sorbet-runtime"
 
+require_relative "models/get_threads"
+require_relative "models/search_thread_from_uri"
+require_relative "models/search_indexes"
+require_relative "models/register_thread"
+
 # API module for tsumanne.net includes knowledge as const.
 module Tsumanne
   class API
@@ -23,11 +28,11 @@ module Tsumanne
       @board_id = T.let(T.must(BOARD_IDS[board_id]), String)
     end
 
-    sig { params(index: String, page: Integer).returns(T::Hash[String, T.untyped]) }
+    sig { params(index: String, page: Integer).returns(GetThreadsResponse) }
     def get_threads(index: "all", page: 1)
       # https://tsumanne.net/si/all/1
       # https://tsumanne.net/si/hoge/1
-      fetch_json(paths: [index, page.to_s])
+      GetThreadsResponse.from_hash(fetch_json(paths: [index, page.to_s]))
     end
 
     sig { params(thread_id: String).returns(Mhtml::RootDocument) }
@@ -52,23 +57,29 @@ module Tsumanne
       get_thread_mht(T.must(match_data[:thread_id]))
     end
 
-    sig { params(uri: URI).returns(T::Hash[String, T.untyped]) }
+    sig { params(uri: URI).returns(SearchThreadFromUriResponse) }
     def search_thread_from_uri(uri)
-      # https://tsumanne.net/si/indexes.php?format=json&w=&sbmt=URL
-      fetch_json(paths: ["indexes.php"], query: { w: uri, sbmt: :URL })
+      # https://tsumanne.net/si/indexes.php?format=json&w=...&sbmt=URL
+      # https://tsumanne.net/si/indexes.php?format=json&w=https%3A%2F%2Fimg.2chan.net%2Fb%2Fres%2F86279902.htm&sbmt=URL
+      SearchThreadFromUriResponse.from_hash(
+        fetch_json(paths: ["indexes.php"], query: { w: uri, sbmt: :URL })
+      )
     end
 
-    sig { params(keyword: T.nilable(String), order: Symbol, page: Integer).returns(T::Hash[String, T.untyped]) }
+    sig { params(keyword: T.nilable(String), order: Symbol, page: Integer).returns(SearchIndexesResponse) }
     def search_indexes(keyword: nil, order: :newer, page: 1)
-      # https://tsumanne.net/si/indexes.php?format=json&w=&sbmt=URL
       # https://tsumanne.net/si/indexes.php?format=json&w=&sbmt=%E2%86%93%E6%96%B0
-      fetch_json(paths: ["indexes.php"], query: { w: keyword, sbmt: INDEXES_ORDERS[order], p: page })
+      SearchIndexesResponse.from_hash(
+        fetch_json(paths: ["indexes.php"], query: { w: keyword, sbmt: INDEXES_ORDERS[order], p: page })
+      )
     end
 
-    sig { params(uri: URI, indexes: T.nilable(T::Array[String])).returns(T::Hash[String, T.untyped]) }
+    sig { params(uri: URI, indexes: T.nilable(T::Array[String])).returns(RegisterThreadResponse) }
     def register_thread(uri, indexes: nil)
       # post, https://tsumanne.net/si/input.php?format=json&url=...&category=...
-      fetch_json(paths: ["input.php?format=json"], query: { url: uri, category: (indexes || []).join(",") }, method: :post)
+      RegisterThreadResponse.from_hash(
+        fetch_json(paths: ["input.php?format=json"], query: { url: uri, category: (indexes || []).join(",") }, method: :post)
+      )
     end
 
     private
