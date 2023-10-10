@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email = ["w10776e8w@yahoo.co.jp"]
 
   spec.summary = "API Wrapper for tsumanne.net"
-  spec.description = "This gem provide unofficial API of tsumanne.net, an aggregation site of 2chan.net, in Ruby"
+  spec.description = "This gem provide unofficial API of tsumanne.net, an archiving site of 2chan.net"
   spec.homepage = "https://github.com/eggplants/tsumanne"
   spec.license = "MIT"
   spec.required_ruby_version = "~> 3.2"
