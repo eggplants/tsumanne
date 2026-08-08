@@ -1,0 +1,6 @@
+# This file is a Mixlib::Config file, not a style file: `all` / `exclude_rule` are
+# only understood inside a style file passed with `style`. Prefix a rule with `~`
+# to exclude it here.
+#
+# MD013 (line length): badge definitions and links do not wrap.
+rules "~MD013"

@@ -20,7 +20,7 @@ end
 namespace :mdl do
   desc "Format markdown files with markdownlint"
   task :format do
-    system("bundle exec mdl #{Dir.glob("**/*.md") * "\s"}")
+    system("bundle exec mdl -c .mdlrc #{Dir.glob("**/*.md") * "\s"}")
     puts "#{$CHILD_STATUS.success? ? :no : :some} errors found"
   end
 end

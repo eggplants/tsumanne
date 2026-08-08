@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "optimist", "~> 3.2"
   spec.add_dependency "sorbet-runtime", "~> 0.5"
 
   spec.add_development_dependency "mdl", "~> 0.12"

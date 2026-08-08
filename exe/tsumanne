@@ -6,4 +6,4 @@ require "sorbet-runtime"
 
 require_relative "../lib/tsumanne/cli"
 
-Tsumanne::CLI.start(ARGV)
+exit(Tsumanne::CLI.start(ARGV))

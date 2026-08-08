@@ -33,3 +33,8 @@ Metrics/MethodLength:
 
 Gemspec:
   Enabled: true
+
+# `CLI` is a flat dispatcher: one short method per subcommand, which reads best in a single class.
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/tsumanne/cli.rb'
