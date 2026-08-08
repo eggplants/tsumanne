@@ -1,0 +1,8 @@
+# `.git` is deliberately kept: the gemspec lists the files to package with `git ls-files`.
+# For the same reason, nothing tracked by git may be excluded here.
+.bundle/
+coverage/
+pkg/
+tmp/
+.rspec_status
+*.gem
