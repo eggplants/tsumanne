@@ -1,0 +1,42 @@
+[tools]
+"aqua:azu/dockerfile-pin" = "latest"
+claude = "latest"
+pinact = "latest"
+ruby = "latest"
+
+[tasks.install]
+description = "Install gem dependencies"
+run = "bundle install"
+
+[tasks.lint]
+description = "Run all linters and the type checker (no auto-fix)"
+depends = ["install"]
+run = [
+  "bundle exec rubocop",
+  "bundle exec mdl $(git ls-files '*.md')",
+  "bundle exec srb tc",
+  "bundle exec tapioca check-shims",
+]
+
+[tasks.test]
+description = "Run the RSpec suite"
+depends = ["install"]
+run = "bundle exec rspec"
+
+[tasks."lint:fix"]
+description = "Auto-fix what the linters and the type checker can fix"
+depends = ["install"]
+run = [
+  "bundle exec rubocop --autocorrect-all",
+  "bundle exec srb tc --autocorrect",
+]
+
+[tasks.pre-commit]
+description = "Auto-fix, then verify everything before committing"
+depends = ["lint:fix"]
+run = ["mise run lint", "mise run test"]
+
+[tasks.release]
+description = "Build and push the gem to RubyGems"
+depends = ["install"]
+run = "bundle exec rake release"

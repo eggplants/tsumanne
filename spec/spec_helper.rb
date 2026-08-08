@@ -1,8 +1,9 @@
+# typed: false
 # frozen_string_literal: true
 
 require "tsumanne"
 
-require 'simplecov'
+require "simplecov"
 require "simplecov_json_formatter"
 
 SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
@@ -22,4 +23,3 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
-

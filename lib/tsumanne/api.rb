@@ -5,9 +5,7 @@
 require "net/http"
 require "uri"
 require "json"
-require "zlib"
 
-require "mhtml"
 require "sorbet-runtime"
 
 require_relative "models/get_threads"
@@ -17,10 +15,11 @@ require_relative "models/register_thread"
 
 # API module for tsumanne.net includes knowledge as const.
 module Tsumanne
+  # Client for the tsumanne.net endpoints of a single board.
   class API
     extend T::Sig
 
-    sig{ returns(String) }
+    sig { returns(String) }
     attr_reader :board_id
 
     sig { params(board_id: Symbol).void }
@@ -35,25 +34,27 @@ module Tsumanne
       GetThreadsResponse.from_hash(fetch_json(paths: [index, page.to_s]))
     end
 
-    sig { params(thread_id: String).returns(Mhtml::RootDocument) }
+    # Returns the merged HTML export of an archived thread, as served by the site (Shift_JIS encoded).
+    #
+    # `mht.php` used to answer with JSON pointing at a gzipped MHTML file; it now redirects straight
+    # to a single self-contained HTML document, so no MHTML parsing is involved anymore.
+    sig { params(thread_id: String).returns(String) }
     def get_thread_mht(thread_id)
-      # https://tsumanne.net/si/mht.php?id=129691
-      res = fetch_json(paths: ["mht.php"], query: { id: thread_id }, method: :get_response)
-      mht_gz = fetch(paths: [T.let(res["path"], String)])
-      # https://ksef-3go.hatenadiary.org/entry/20070924/1190563143
-      # https://docs.ruby-lang.org/ja/latest/method/Zlib=3a=3aInflate/s/new.html
-      zstream = Zlib::Inflate.new(Zlib::MAX_WBITS + 32)
-      buf = zstream.inflate(mht_gz)
-      zstream.finish
-      zstream.close
-      Mhtml::RootDocument.new(buf)
+      # https://tsumanne.net/si/mht.php?id=129691 -> 302 ./mhttmp/86279902.html
+      uri = join_paths(BASE_URL, [@board_id, "mht.php"])
+      uri.query = URI.encode_www_form({ id: thread_id })
+      res = Net::HTTP.get_response(uri)
+      raise Error, "thread #{thread_id} is not archived (HTTP #{res.code})" unless res.is_a?(Net::HTTPRedirection)
+
+      T.must(Net::HTTP.get(URI.join(uri, res["location"])))
     end
 
-    sig { params(thread_path: String).returns(T.nilable(Mhtml::RootDocument)) }
+    sig { params(thread_path: String).returns(T.nilable(String)) }
     def get_thread_from_path(thread_path)
       # https://tsumanne.net/si/data/2023/08/30/8883354/
       match_data = %r{^\d{4}/\d{2}/\d{2}/(?<thread_id>\d+)$}.match(thread_path)
       return if match_data.nil?
+
       get_thread_mht(T.must(match_data[:thread_id]))
     end
 
@@ -78,7 +79,8 @@ module Tsumanne
     def register_thread(uri, indexes: nil)
       # post, https://tsumanne.net/si/input.php?format=json&url=...&category=...
       RegisterThreadResponse.from_hash(
-        fetch_json(paths: ["input.php?format=json"], query: { url: uri, category: (indexes || []).join(",") }, method: :post)
+        fetch_json(paths: ["input.php?format=json"], query: { url: uri, category: (indexes || []).join(",") },
+                   method: :post)
       )
     end
 
@@ -97,11 +99,10 @@ module Tsumanne
       when :get
         uri.query = query
         Net::HTTP.get(uri)
-      when :get_response
-        uri.query = query
-        Net::HTTP.get_response(uri).body
       when :post
-        Net::HTTP.post(uri, query).body
+        # Without an explicit form content type the server does not populate `$_POST`,
+        # and answers with a PHP warning followed by a "not permitted URL" error.
+        Net::HTTP.post(uri, query, "Content-Type" => "application/x-www-form-urlencoded").body
       end
     end
 
@@ -118,7 +119,7 @@ module Tsumanne
 
     sig { params(base: String, paths: T::Array[String]).returns(URI::Generic) }
     def join_paths(base, *paths)
-      URI.parse(T.must(([base] + paths).reduce { File.join(_1, _2) }))
+      URI.parse(T.must(([base] + paths).reduce { |joined, path| File.join(joined, path) }))
     end
   end
 end
