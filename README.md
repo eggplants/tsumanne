@@ -20,6 +20,40 @@ gem install tsumanne
 
 See: [`spec/tsumanne_spec.rb`](spec/tsumanne_spec.rb)
 
+## CLI
+
+```bash
+tsumanne [global options] <command> [options] [arguments]
+```
+
+The board to talk to is a global option, so it comes before the command:
+`-b`/`--board` takes one of `img` (default), `may`, `jun`, `dat`, `special`.
+
+| Command | Description |
+| --- | --- |
+| `threads` | List the archived threads of a board (`--index`, `--page`) |
+| `thread` | Print an archived thread, by id or by `YYYY/MM/DD/<thread id>` archive path |
+| `search` | Find the archived thread of a 2chan.net thread URI |
+| `indexes` | List the indexes, or search them by keyword (`--keyword`, `--order`, `--page`) |
+| `register` | Ask the site to archive a 2chan.net thread (`--index`, repeatable) |
+
+```bash
+# list the second page of the `may` board
+tsumanne --board may threads --page 2
+
+# save an archived thread
+tsumanne thread 1234567890 > thread.mht
+
+# look up which archive a thread ended up in
+tsumanne search https://may.2chan.net/b/res/1234567890.htm
+
+# search the indexes, ordered by name instead of by newest
+tsumanne indexes --keyword ねこ --order hira
+
+# request to archive a thread
+tsumanne register https://may.2chan.net/b/res/1234567890.htm
+```
+
 ## Development
 
 ```bash
