@@ -13,6 +13,10 @@ API Wrapper for tsumanne.net
 ## Installation
 
 ```bash
+# mise
+mise use github:eggplants/tsumanne
+
+# gem
 gem install tsumanne
 ```
 
