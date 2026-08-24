@@ -136,7 +136,7 @@ jobs:
           --entry-point=exe/tsumanne \
           --Ruby="$TEBAKO_RUBY" \
           --mode=fat \
-          --output="dist/tsumanne-${GITHUB_REF_NAME#v}-${{ matrix.platform }}${{ matrix.suffix }}"
+          --output="dist/tsumanne-${GITHUB_REF_NAME#v}-${{ matrix.platform }}"
 
     - name: Smoke-test the executable
       shell: bash
