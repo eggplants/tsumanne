@@ -77,15 +77,20 @@ jobs:
         include:
         - os: ubuntu-latest
           platform: linux-gnu-x86_64
+          format: limnifs
         - os: ubuntu-24.04-arm
           platform: linux-gnu-arm64
+          format: limnifs
         - os: macos-latest
           platform: macos-arm64
+          format: limnifs
         - os: macos-15-intel
           platform: macos-x86_64
+          format: limnifs
         - os: windows-latest
           platform: windows-x86_64
           suffix: .exe
+          format: dwarfs
 
     env:
       TEBAKO_VERSION: v0.2.3
@@ -136,6 +141,7 @@ jobs:
           --entry-point=exe/tsumanne \
           --Ruby="$TEBAKO_RUBY" \
           --mode=fat \
+          --format="${{ matrix.format }}" \
           --output="dist/tsumanne-${GITHUB_REF_NAME#v}-${{ matrix.platform }}"
 
     - name: Smoke-test the executable
