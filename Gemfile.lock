@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tsumanne (0.0.7)
+    tsumanne (0.0.8)
       optimist (~> 3.2)
       sorbet-runtime (~> 0.5)
 
