@@ -20,7 +20,8 @@ class GetThreadsResponse < T::Struct
     # Only some boards report this one.
     const :access, T.nilable(Integer)
     const :text, String
-    const :thumb, String
+    # Threads posted without an image have no thumbnail.
+    const :thumb, T.nilable(String)
     # `public` and `del` are no longer part of the response; kept for older archives.
     const :public, T.nilable(T::Boolean)
     const :del, T.nilable(Integer)
