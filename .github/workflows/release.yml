@@ -97,9 +97,9 @@ jobs:
           format: dwarfs
 
     env:
-      TEBAKO_VERSION: v0.3.2
+      TEBAKO_VERSION: v2.0.0
       TEBAKO_RUBY: 4.0.6
-      TEBAKO_RUNTIME: 0.16.12
+      TEBAKO_RUNTIME: 0.16.17
 
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -149,7 +149,7 @@ jobs:
           --entry-point=exe/tsumanne \
           --Ruby="$TEBAKO_RUBY" \
           --tebako-version="$TEBAKO_RUNTIME" \
-          --mode=fat \
+          --mode=self-contained \
           --format="${{ matrix.format }}" \
           --output="dist/tsumanne-${GITHUB_REF_NAME#v}-${{ matrix.platform }}" \
           --quiet-notices
