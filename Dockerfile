@@ -1,10 +1,10 @@
-FROM --platform=$BUILDPLATFORM ruby:4.0@sha256:c400c1e41e8ad2276c82529ff9fd552cdb339a84e761c9d57d2d7f582122fa6e AS builder
+FROM --platform=$BUILDPLATFORM ruby:4.0@sha256:342dd3092e25f9d16fc2a5c48c5bb2d9a93717d4f900d005d6e088e2c45d3d19 AS builder
 
 WORKDIR /src
 COPY . .
 RUN gem build tsumanne.gemspec --output /tmp/tsumanne.gem
 
-FROM ruby:4.0-slim@sha256:607bf92fa7ecebb4a0c6654b62cb44c48d94b36b6f5a754611ddbbe3dc5b6135
+FROM ruby:4.0-slim@sha256:db9ddd17cc6ac603f2497d98ac5c88e4118908d6f9a45f2422ebee141f91e485
 
 LABEL org.opencontainers.image.title="tsumanne" \
       org.opencontainers.image.description="Unofficial API wrapper and CLI for tsumanne.net" \
